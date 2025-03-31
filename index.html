@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Anushka - A Special Apology</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInDown 1s forwards 0.5s;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1s forwards 0.8s;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 1s forwards 1.2s;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 1rem;
+        }
+        
+        .sad-emoji {
+            width: 120px;
+            height: 120px;
+            margin: 2rem auto;
+            animation: pulse 1.5s ease infinite;
+            background: radial-gradient(circle at center, #FFDE59 30%, #FFB800 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .sad-emoji::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: transparent;
+            z-index: 1;
+        }
+        
+        /* Eyes */
+        .sad-emoji .eyes {
+            position: relative;
+            top: 35px;
+            display: flex;
+            justify-content: space-around;
+            width: 90px;
+            margin: 0 auto;
+        }
+        
+        .sad-emoji .eye {
+            width: 30px;
+            height: 30px;
+            background: #663300;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transform: scale(1.2);
+        }
+        
+        .sad-emoji .eye::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            top: 5px;
+            left: 5px;
+        }
+        
+        /* Eyebrows */
+        .sad-emoji .eyebrows {
+            position: relative;
+            top: 20px;
+            display: flex;
+            justify-content: space-around;
+            width: 100px;
+            margin: 0 auto;
+        }
+        
+        .sad-emoji .eyebrow {
+            width: 25px;
+            height: 5px;
+            background: #663300;
+            border-radius: 5px;
+            transform: rotate(-15deg);
+        }
+        
+        .sad-emoji .eyebrow:last-child {
+            transform: rotate(15deg);
+        }
+        
+        /* Mouth */
+        .sad-emoji .mouth {
+            position: relative;
+            top: 50px;
+            width: 30px;
+            height: 10px;
+            margin: 0 auto;
+            border-radius: 0 0 15px 15px;
+            border-bottom: 5px solid #663300;
+            transform: rotate(180deg);
+        }
+        
+        .floating-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .floating-image {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            animation: float 15s linear infinite;
+            opacity: 0;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 1rem auto;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .continue-btn {
+            opacity: 0;
+            animation: pulse 1.5s ease infinite;
+            animation-delay: 3s;
+        }
+        
+        /* Hide sections initially */
+        .memories-container, .photo-gallery, .final-buttons, #message-container {
+            display: none;
+        }
+        
+        /* Hide wrong list title initially */
+        .wrong-list-title {
+            display: none;
+            margin: 2rem 0 1rem;
+            opacity: 0;
+            animation: fadeInDown 1s forwards;
+        }
+        
+        .wrong-list-title.visible {
+            display: block;
+            opacity: 1;
+        }
+        
+        .memories-container {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            perspective: 1000px;
+        }
+        
+        .memory {
+            width: 220px;
+            height: 220px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+            cursor: pointer;
+            opacity: 0;
+        }
+        
+        .memory.revealed {
+            animation: fadeIn 1s forwards calc(0.3s + var(--delay) * 0.2s);
+        }
+        
+        .memory.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-front, .memory-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .memory-front {
+            background: linear-gradient(145deg, #f0e6ff, #ffeaef);
+            transform: rotateY(0deg);
+            font-size: 3rem;
+        }
+        
+        .memory-back {
+            background: linear-gradient(145deg, #fff0f5, #f5f0ff);
+            transform: rotateY(180deg);
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.4;
+        }
+        
+        .memory-title {
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        /* Interactive photo frames animation */
+        .photo-gallery {
+            display: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0 2rem;
+            opacity: 0;
+        }
+        
+        .photo-gallery.revealed {
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        
+        .photo-frame {
+            width: 180px;
+            height: 180px;
+            background: white;
+            border: 10px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transform: rotate(-3deg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+        }
+        
+        .photo-frame.revealed {
+            animation: fadeIn 1s forwards calc(0.3s + var(--delay) * 0.3s);
+        }
+        
+        .photo-frame:nth-child(even) {
+            transform: rotate(3deg);
+        }
+        
+        .photo-frame:hover {
+            transform: scale(1.05) rotate(0);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-size: 2.5rem;
+        }
+        
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            padding: 0.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .photo-frame:hover .photo-caption {
+            transform: translateY(0);
+        }
+        
+        .final-buttons {
+            display: none;
+            justify-content: center;
+            opacity: 0;
+        }
+        
+        .final-buttons.revealed {
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        
+        #forgive-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #forgive-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff3366;
+            opacity: 0;
+            z-index: 100;
+        }
+        
+        /* Full-screen sorry message overlay */
+        .full-screen-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(142, 124, 195, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .full-screen-message.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* New kavita styles */
+        .kavita-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+        
+        .arz-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            text-align: center;
+        }
+        
+        .arz-title.animated {
+            animation: fadeInUp 1s forwards;
+        }
+        
+        .kavita-line {
+            font-size: 1.6rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+        }
+        
+        .kavita-line.animated {
+            animation: fadeInUp 1s forwards;
+        }
+        
+        .call-text {
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+            animation: bounce 2s ease infinite;
+            margin-top: 2rem;
+            opacity: 0;
+            animation-delay: 5s;
+        }
+        
+        .call-text.animated {
+            animation: bounce 2s ease infinite, fadeIn 1s forwards 5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes heartbeat {
+            from {
+                transform: scale(1);
+                transform-origin: center center;
+                animation-timing-function: ease-out;
+            }
+            10% {
+                transform: scale(0.91);
+                animation-timing-function: ease-in;
+            }
+            17% {
+                transform: scale(0.98);
+                animation-timing-function: ease-out;
+            }
+            33% {
+                transform: scale(0.87);
+                animation-timing-function: ease-in;
+            }
+            45% {
+                transform: scale(1);
+                animation-timing-function: ease-out;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.7;
+                transform: scale(0.95);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 0.7;
+                transform: scale(0.95);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(120vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Section transitions */
+        .section-fade {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .section-fade.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-images">
+        <!-- Emoji images will be added here by JS -->
+    </div>
+    
+    <div class="container">
+        <h1>Dear Anushka (Madam)</h1>
+        <div class="subtitle">I'm truly sorry !</div>
+        
+        <div class="card">
+            <p>I know we've been distant lately, and I miss having you in my life.</p>  
+            <p>I am extremely very sorry from the bottom of my heart for what I did. I never meant to hurt you, but I truly regret it. I promise this won’t happen again, and I will make sure you never feel hurt because of my actions.</p>  
+            <p>You mean a lot to me, and I will do everything to make things right again.</p>  
+            
+            <div class="sad-emoji">
+                <div class="eyebrows">
+                    <div class="eyebrow"></div>
+                    <div class="eyebrow"></div>
+                </div>
+                <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="mouth"></div>
+            </div>
+            
+            <button id="continue-btn-1" class="btn btn-primary continue-btn">Click here please</button>
+        </div>
+        
+        <h2 id="wrong-list-title" class="wrong-list-title">Mistakes I Made</h2>
+        <div class="memories-container" id="memories-section">
+            <div class="memory" style="--delay: 1;">
+                <div class="memory-front">
+                    😭
+                    <div class="memory-title">Broke your thumb rule</div>
+                </div>
+            </div>
+            <div class="memory" style="--delay: 2;">
+                <div class="memory-front">
+                    💫
+                    <div class="memory-title">Used a lot of brain</div>
+                </div>
+            </div>
+            <div class="memory" style="--delay: 3;">
+                <div class="memory-front">
+                    🌈
+                    <div class="memory-title">Not followed your instructions</div>
+                </div>
+            </div>
+            
+            <button id="continue-btn-2" class="btn btn-primary continue-btn" style="width: 100%; margin-top: 2rem; display: none;">Special Moments !</button>
+        </div>
+        
+        <div class="photo-gallery" id="photos-section">
+            <div class="photo-frame" style="--delay: 3;">
+                <div class="photo">👋</div>
+                <div class="photo-caption">Thappd kahoge</div>
+            </div>
+            <div class="photo-frame" style="--delay: 4;">
+                <div class="photo">🔥</div>
+                <div class="photo-caption">When you roast me</div>
+            </div>
+            <div class="photo-frame" style="--delay: 5;">
+                <div class="photo">❤️</div>
+                <div class="photo-caption">Tan-mani/10-may</div>
+            </div>  
+            <div class="photo-frame" style="--delay: 6;">
+                <div class="photo">🤪</div>
+                <div class="photo-caption">Pagal ho gye tum</div>
+            </div>
+            <button id="continue-btn-3" class="btn btn-primary continue-btn" style="width: 100%; margin-top: 2rem; display: none;">Click for my final message</button>
+        </div>
+        
+        <div class="final-buttons" id="final-section">
+            <button id="forgive-btn" class="btn btn-primary"><span>Will You Forgive Me?</span></button>
+        </div>
+        
+        <div id="message-container" style="opacity: 0; margin-top: 2rem;"></div>
+    </div>
+    
+    <!-- Full-screen sorry message overlay -->
+    <div class="full-screen-message" id="sorry-overlay">
+        <div class="kavita-container">
+            <div class="arz-title" id="arz-title">आर्ज़ किया है:</div>
+            <div class="kavita-line" id="line1">आप चुप रहें तो अजीब सा लगता है,</div>
+            <div class="kavita-line" id="line2">आपकी हँसी में ही सुकून सा बसता है।</div>
+            <div class="kavita-line" id="line3">अब मान जाओ, उदास ना रहो।</div>
+            <div class="kavita-line" id="line4">आपके बिना दिल बेचैन सा लगता है।</div>
+            <div class="call-text">😔 Extremely Sorry yaar! 💔 <br> 🙏 Maan jaao na 🤗 <br> 📞 Call krna please! 🙂</div>
+        </div>
+    </div>
+    
+    <script>
+        // Add floating images
+        const floatingImages = document.querySelector('.floating-images');
+        const emojis = ['💖', '✨', '💫', '🌟', '💕', '🌈', '🎵', '🌸', '🍀', '🎀', '🦋'];
+        
+        for (let i = 0; i < 20; i++) {
+            const floatingImage = document.createElement('div');
+            floatingImage.classList.add('floating-image');
+            
+            // Random positioning
+            const left = Math.random() * 100;
+            const delay = Math.random() * 10;
+            const duration = 15 + Math.random() * 20;
+            
+            floatingImage.style.left = `${left}%`;
+            floatingImage.style.animationDelay = `${delay}s`;
+            floatingImage.style.animationDuration = `${duration}s`;
+            
+            // Random emoji
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            floatingImage.innerHTML = randomEmoji;
+            
+            floatingImages.appendChild(floatingImage);
+        }
+        
+        // First continue button - Show memories
+        document.getElementById('continue-btn-1').addEventListener('click', function() {
+            const memoriesSection = document.getElementById('memories-section');
+            const wrongListTitle = document.getElementById('wrong-list-title');
+            
+            // Animate initial section exit
+            this.style.display = 'none';
+            
+            // Show wrong list title
+            wrongListTitle.classList.add('visible');
+            
+            // Show memories section
+            memoriesSection.style.display = 'flex';
+            
+            // Reveal memories with delay
+            const memories = document.querySelectorAll('.memory');
+            memories.forEach((memory, index) => {
+                setTimeout(() => {
+                    memory.classList.add('revealed');
+                }, index * 300);
+            });
+            
+            // Show next continue button after delay
+            setTimeout(() => {
+                document.getElementById('continue-btn-2').style.display = 'block';
+                document.getElementById('continue-btn-2').style.opacity = '1';
+            }, 2000);
+        });
+        
+        // Second continue button - Show photos
+        document.getElementById('continue-btn-2').addEventListener('click', function() {
+            const photosSection = document.getElementById('photos-section');
+            
+            // Hide button
+            this.style.display = 'none';
+            
+            // Show photos section
+            photosSection.style.display = 'flex';
+            photosSection.classList.add('revealed');
+            
+            // Reveal photos with delay
+            const photos = document.querySelectorAll('.photo-frame');
+            photos.forEach((photo, index) => {
+                setTimeout(() => {
+                    photo.classList.add('revealed');
+                }, index * 400);
+            });
+            
+            // Show next continue button after delay
+            setTimeout(() => {
+                document.getElementById('continue-btn-3').style.display = 'block';
+                document.getElementById('continue-btn-3').style.opacity = '1';
+            }, 2500);
+        });
+        
+        // Third continue button - Show final section
+        document.getElementById('continue-btn-3').addEventListener('click', function() {
+            const finalSection = document.getElementById('final-section');
+            
+            // Hide button
+            this.style.display = 'none';
+            
+            // Show final section
+            finalSection.style.display = 'flex';
+            finalSection.classList.add('revealed');
+        });
+        
+        // Memory cards flip effect
+        const memories = document.querySelectorAll('.memory');
+        memories.forEach(memory => {
+            memory.addEventListener('click', () => {
+                memory.classList.toggle('flipped');
+            });
+        });
+        
+        // Interactive typing effect for the message
+        function typeEffect(element, text, speed = 50) {
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        }
+        
+        // Forgive button click - Show full-screen sorry message
+        const forgiveBtn = document.getElementById('forgive-btn');
+        forgiveBtn.addEventListener('click', function(e) {
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+            
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+            
+            // Show full-screen sorry message
+            document.getElementById('sorry-overlay').classList.add('active');
+            
+            // Animate arz title first
+            document.getElementById('arz-title').classList.add('animated');
+            
+            // Animate kavita lines sequentially
+            const lines = document.querySelectorAll('.kavita-line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('animated');
+                }, 1000 + index * 1000);
+            });
+            
+            // Animate call text after kavita
+            document.querySelector('.call-text').classList.add('animated');
+            
+            // Create confetti effect behind the overlay
+            createConfetti();
+            
+            // Change sad emoji to happy emoji
+            const sadEmoji = document.querySelector('.sad-emoji');
+            sadEmoji.innerHTML = `
+                <div class="eyebrows">
+                    <div class="eyebrow" style="transform: rotate(0deg);"></div>
+                    <div class="eyebrow" style="transform: rotate(0deg);"></div>
+                </div>
+                <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="mouth" style="transform: rotate(0deg); top: 65px; border-radius: 15px 15px 0 0; border-top: 5px solid #663300; border-bottom: none;"></div>
+            `;
+        });
+        
+        // Confetti effect
+        function createConfetti() {
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random positioning
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                // Random shape
+                const shapes = ['circle', 'square', 'triangle'];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                if (shape === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                } else if (shape === 'triangle') {
+                    confetti.style.width = '0';
+                    confetti.style.height = '0';
+                    confetti.style.borderLeft = `${size}px solid transparent`;
+                    confetti.style.borderRight = `${size}px solid transparent`;
+                    confetti.style.borderBottom = `${size}px solid`;
+                    confetti.style.backgroundColor = 'transparent';
+                }
+                
+                // Random color
+                const colors = ['#ff3366', '#2575fc', '#6a11cb', '#ffdd40', '#3ae374', '#ff9966'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                confetti.style.left = `${left}%`;
+                confetti.style.top = `${top}%`;
+                confetti.style.backgroundColor = shape === 'triangle' ? 'transparent' : color;
+                confetti.style.borderBottomColor = shape === 'triangle' ? color : 'transparent';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                // Animation
+                confetti.style.animation = `float ${5 + Math.random() * 5}s linear`;
+                confetti.style.opacity = '0.8';
+                
+                document.body.appendChild(confetti);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 10000);
+            }
+        }
+        
+        // Add interactive hover effect to sad emoji
+        const sadEmoji = document.querySelector('.sad-emoji');
+        sadEmoji.addEventListener('mouseenter', () => {
+            sadEmoji.style.transform = 'scale(1.2)';
+            sadEmoji.style.transition = 'transform 0.3s ease';
+        });
+        
+        sadEmoji.addEventListener('mouseleave', () => {
+            sadEmoji.style.transform = 'scale(1)';
+        });
+        
+        // Make continue button visible after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const continueBtn = document.getElementById('continue-btn-1');
+                continueBtn.style.opacity = '1';
+            }, 3000);
+        });
+        
+        // Close full-screen message when clicked
+        document.getElementById('sorry-overlay').addEventListener('click', function() {
+            this.classList.remove('active');
+        });
+    </script>
+</body>
