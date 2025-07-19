@@ -3,690 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorry Anushka</title>
+    <title>For My Dear Anushka ❤️</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
         
         body {
-            height: 100vh;
-            overflow: hidden;
-            background: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            perspective: 1000px;
-        }
-        
-        .card-container {
-            position: relative;
-            width: 90%;
-            max-width: 600px;
-            height: 80vh;
-            max-height: 800px;
-            perspective: 1500px;
-            cursor: pointer;
-        }
-        
-        .card {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 1.5s ease;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
-            border-radius: 20px;
-        }
-        
-        .card.open {
-            transform: rotateY(180deg);
-        }
-        
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        
-        .front {
-            background: linear-gradient(45deg, #8e2de2, #4a00e0);
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
             padding: 20px;
-            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
         
-        .front::before {
-            content: "";
-            position: absolute;
+        /* Floating hearts animation */
+        .hearts {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.05);
-            opacity: 0.1;
-            z-index: -1;
-        }
-        
-        .front h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            animation: pulse 2s infinite;
-        }
-        
-        .front p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .front .heart {
-            font-size: 5rem;
-            margin: 20px 0;
-            animation: heartbeat 1.5s infinite;
-            color: #ff4d6d;
-        }
-        
-        .front .tap-hint {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            animation: blink 2s infinite;
-        }
-        
-        .back {
-            transform: rotateY(180deg);
-            background: white;
-            overflow: hidden;
-        }
-        
-        .scene {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 1s ease;
-            padding: 20px;
-        }
-        
-        .scene.active {
-            opacity: 1;
-        }
-        
-        .scene-text {
-            font-size: 2rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            z-index: 10;
-            margin-top: 20px;
-        }
-        
-        /* Scene 1 */
-        #scene1 {
-            background: #000;
-        }
-        
-        #scene1 .scene-text {
-            animation: fadeIn 2s ease-in;
-        }
-        
-        /* Scene 2 */
-        #scene2 {
-            background: linear-gradient(to bottom, #1a237e, #000046);
-            overflow: hidden;
-        }
-        
-        .raindrop {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.7);
-            width: 2px;
-            top: -50px;
+            pointer-events: none;
             z-index: 1;
         }
-        
-        /* Scene 3 */
-        #scene3 {
-            background: linear-gradient(to bottom, #373B44, #4286f4);
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
         }
-        
-        .character {
-            width: 100px;
-            height: 150px;
-            background: #222;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             position: relative;
-            margin-bottom: 20px;
+            z-index: 2;
+            animation: cardAppear 1s ease-out;
+            overflow: hidden;
         }
-        
-        .character::before {
-            content: "";
+
+        .card::before {
+            content: '';
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #222;
-            border-radius: 50%;
-            top: -30px;
-            left: 25px;
-        }
-        
-        .character::after {
-            content: "";
-            position: absolute;
-            width: 30px;
-            height: 10px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 5px;
-            top: 5px;
-            left: 35px;
-            transform: rotate(-10deg);
-        }
-        
-        /* Scene 4 */
-        #scene4 {
-            background: linear-gradient(to bottom right, #ff9966, #ff5e62);
-        }
-        
-        .broken-heart {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin-bottom: 40px;
-        }
-        
-        .half {
-            position: absolute;
-            width: 50px;
-            height: 80px;
             top: 0;
-            border-radius: 50px 50px 0 0;
-            background: #ff0a54;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('moods.jpg') center center/cover no-repeat;
+            opacity: 0.3;
+            z-index: -1;
         }
-        
-        .left {
-            transform: rotate(-45deg);
-            left: 20px;
-            animation: healLeft 4s infinite;
-            transform-origin: bottom right;
-        }
-        
-        .right {
-            transform: rotate(45deg);
-            right: 20px;
-            animation: healRight 4s infinite;
-            transform-origin: bottom left;
-        }
-        
-        /* Scene 5 */
-        #scene5 {
-            background: white;
-        }
-        
-        .rose {
-            width: 120px;
-            height: 120px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: spin 20s linear infinite;
-        }
-        
-        .petal {
+
+        .card::after {
+            content: '';
             position: absolute;
-            width: 40px;
-            height: 80px;
-            background: linear-gradient(to bottom, #ff416c, #e50914);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.5) 100%);
+            z-index: -1;
         }
-        
-        #scene5 .scene-text {
-            color: #e50914;
-            margin-top: 40px;
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
-        
-        /* Scene 6 - Final Image */
-        #scene6 {
-            background: linear-gradient(to bottom, #000428, #004e92);
+
+        .photo-container {
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
             justify-content: center;
             align-items: center;
         }
-        
-        .final-image {
-            width: 80%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease, float 4s ease infinite;
+
+        .photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .photo:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
             margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        #scene6 .scene-text {
-            margin-top: 20px;
-            font-size: 1.8rem;
+
+        .apology-text {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .poem {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
         
-        /* Controls */
-        .controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+        .poem::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: serif;
+        }
+
+        .poem::after {
+            content: '"';
+            position: absolute;
+            bottom: -40px;
+            right: 15px;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: serif;
+        }
+
+        .music-control {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 10px;
             display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 10px;
         }
         
-        .btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
+        .music-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
-            font-size: 1.2rem;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-size: 14px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
+
+        .music-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+
+        .music-btn:active {
+            transform: translateY(0);
+        }
+
+        .heart-icon {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
         }
         
         @keyframes heartbeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.1); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes pulse {
-            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 77, 109, 0.6); }
-            100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        
-        @keyframes healLeft {
-            0% { transform: rotate(-45deg) translateX(20px); }
-            50% { transform: rotate(-45deg) translateX(0); }
-            100% { transform: rotate(-45deg) translateX(0); }
-        }
-        
-        @keyframes healRight {
-            0% { transform: rotate(45deg) translateX(-20px); }
-            50% { transform: rotate(45deg) translateX(0); }
-            100% { transform: rotate(45deg) translateX(0); }
-        }
-        
-        @keyframes spin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-        
-        /* Sparkle effect */
-        .sparkles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-        }
-        
-        .sparkle {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        /* Envelope animations */
-        @keyframes openEnvelope {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .typing-text {
+            margin: 25px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 500;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .card-container {
-            animation: openEnvelope 1s forwards;
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 20px;
+            background-color: #667eea;
+            margin-left: 2px;
+            animation: blink 1s infinite;
         }
-        
-        /* For mobile */
-        @media (max-width: 768px) {
-            .front h1 {
-                font-size: 2.5rem;
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px;
+                margin: 10px;
             }
             
-            .scene-text {
-                font-size: 1.5rem;
+            .title {
+                font-size: 24px;
             }
             
-            .final-image {
-                width: 90%;
+            .apology-text {
+                font-size: 16px;
+            }
+            
+            .poem {
+                font-size: 14px;
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="card-container">
+    <!-- Floating hearts background -->
+    <div class="hearts" id="hearts"></div>
+
+    <!-- Main card -->
         <div class="card">
-          <div class="front">
-            <div class="heart">🌻</div>
-            <h1>Sorry Anushka</h1>
-            <p>A special apology for a special person...</p>
-            <div class="tap-hint">Tap to open. Please click and wear headphones!!</div>
-          </div>
-          <div class="back">
-      
-            <!-- Scene 1 -->
-            <div id="scene1" class="scene">
-              <div class="scene-text">Anushka... I'm truly sorry.</div>
+        <div class="photo-container">
+            <img src="photo.png" alt="Anushka" class="photo">
             </div>
       
-            <!-- Scene 2 -->
-            <div id="scene2" class="scene">
-              <div id="raindrops"></div>
-              <div class="scene-text">Please forgive me... your silence hurts the most.</div>
+        <h1 class="title">For My Dear Anushka ❤️</h1>
+        
+        <div class="apology-text">
+            I understand yaar, irritation smjh skta hu yaar, maaf krdo please... 
+            You mean the world to me and I never want to hurt you. <br/>
+            please maaf krdo please...
             </div>
       
-            <!-- Scene 3 -->
-            <div id="scene3" class="scene">
-              <div class="character"></div>
-              <div class="scene-text">Whatever punishment you give... I accept it wholeheartedly.</div>
-            </div>
-      
-            <!-- Scene 4 -->
-            <div id="scene4" class="scene">
-              <div class="broken-heart">
-                <div class="half left"></div>
-                <div class="half right"></div>
-              </div>
-              <div class="scene-text">Just don’t stay upset....</div>
-            </div>
-      
-            <!-- Scene 5 -->
-            <div id="scene5" class="scene">
-              <div class="rose">
-                <div class="petal" style="transform: rotateY(0deg) translateZ(30px)"></div>
-                <div class="petal" style="transform: rotateY(72deg) translateZ(30px)"></div>
-                <div class="petal" style="transform: rotateY(144deg) translateZ(30px)"></div>
-                <div class="petal" style="transform: rotateY(216deg) translateZ(30px)"></div>
-                <div class="petal" style="transform: rotateY(288deg) translateZ(30px)"></div>
-              </div>
-              <div class="scene-text">With all my heart... I'm truly sorry 💔</div>
-            </div>
-      
-            <!-- Scene 6 -->
-            <div id="scene6" class="scene">
-              <img src="/your-local-image.png" alt="Sorry" class="final-image">
-              <div class="scene-text">Please... give me one more chance ❤️</div>
-            </div>
-      
-          </div>
+                <div class="poem">
+            Yeh aapki muskan ki kadr krte hai hum<br>
+            Aapki khushi meri khushi hai, aapka gham mera gham<br>
+            Bas yehi dua hai, kabhi na ho yeh hasi kam.
         </div>
-      </div>
+        
+        <div class="typing-text" id="typingText">
+            <span id="typingContent"></span><span class="typing-cursor"></span>
+        </div>
+        
+        <div class="music-control">
+            <button class="music-btn" onclick="toggleMusic()">
+                <span id="musicIcon">🎵</span>
+                <span id="musicText">Play Music</span>
+            </button>
+            </div>
       
-    
-    <div class="sparkles"></div>
-    
-    <div class="controls">
-        <button class="btn" id="soundBtn">🔊</button>
+        <div class="footer">
+            Made with <span class="heart-icon">❤️</span> for you
+        </div>
     </div>
     
-    <!-- Audio element with a fallback message -->
+    <!-- Background music -->
     <audio id="bgMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elements
-            const card = document.querySelector('.card');
-            const scenes = document.querySelectorAll('.scene');
-            const soundBtn = document.getElementById('soundBtn');
-            const bgMusic = document.getElementById('bgMusic');
-            const raindropContainer = document.getElementById('raindrops');
-            const sparklesContainer = document.querySelector('.sparkles');
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const hearts = ['❤️', '💕', '💖', '💗', '💓'];
             
-            // Variable to track if music should be playing
-            let musicEnabled = true;
-            
-            // Card flip
-            card.addEventListener('click', function() {
-                card.classList.toggle('open');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
                 
-                if (card.classList.contains('open')) {
-                    startScenes();
-                    if (musicEnabled) {
-                        playMusic();
-                    }
-                }
-            });
-            
-            // Sound control
-            soundBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                musicEnabled = !musicEnabled;
-                if (musicEnabled) {
-                    playMusic();
-                    soundBtn.innerHTML = '🔊';
+                heartsContainer.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 300);
+        }
+
+        // Music control
+        let isPlaying = false;
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.textContent = '🎵';
+                musicText.textContent = 'Play Music';
+                isPlaying = false;
                 } else {
-                    bgMusic.pause();
-                    soundBtn.innerHTML = '🔇';
-                }
-            });
-            
-            // Function to handle music playback
-            function playMusic() {
-                // Check if the file exists and can be played
-                bgMusic.play().catch(err => {
-                    console.log('Audio playback issue:', err.message);
-                    // Show a message to the user about the missing audio file
-                    alert("Music file 'music.mp3' couldn't be found. Make sure it exists in the same folder as this HTML file.");
-                    // Update the button state
-                    musicEnabled = false;
-                    soundBtn.innerHTML = '🔇';
+                audio.play().then(() => {
+                    musicIcon.textContent = '⏸️';
+                    musicText.textContent = 'Pause Music';
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log('Auto-play was prevented:', error);
+                    // Show user that they need to click to play
+                    musicIcon.textContent = '🎵';
+                    musicText.textContent = 'Click to Play Music';
                 });
             }
-            
-            // Start scene sequence
-            function startScenes() {
-                let currentScene = 0;
-                showScene(currentScene);
+        }
+
+        // Try to auto-play with multiple strategies
+        function attemptAutoPlay() {
+            // Strategy 1: Direct play
+            audio.play().then(() => {
+                musicIcon.textContent = '⏸️';
+                musicText.textContent = 'Pause Music';
+                isPlaying = true;
+            }).catch(() => {
+                // Strategy 2: Try with user interaction
+                document.addEventListener('click', function() {
+                    if (!isPlaying) {
+                        audio.play().then(() => {
+                            musicIcon.textContent = '⏸️';
+                            musicText.textContent = 'Pause Music';
+                            isPlaying = true;
+                        });
+                    }
+                }, { once: true });
                 
-                function showScene(index) {
-                    // Hide all scenes
-                    scenes.forEach(scene => scene.classList.remove('active'));
-                    
-                    // Show current scene
-                    scenes[index].classList.add('active');
-                    
-                    // Set timeout for next scene
-                    if (index < scenes.length - 1) {
-                        setTimeout(() => {
-                            showScene(index + 1);
-                        }, 5000);
+                // Strategy 3: Try with touch events for mobile
+                document.addEventListener('touchstart', function() {
+                    if (!isPlaying) {
+                        audio.play().then(() => {
+                            musicIcon.textContent = '⏸️';
+                            musicText.textContent = 'Pause Music';
+                            isPlaying = true;
+                        });
                     }
+                }, { once: true });
+            });
+            }
+            
+            // Typing animation
+        function typeText() {
+            const text = "Aur sabse zaroori baat, meri Anu ki muskan dekhna... wahi toh meri khushi hai.";
+            const typingContent = document.getElementById('typingContent');
+            let index = 0;
+            
+            function type() {
+                if (index < text.length) {
+                    typingContent.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50); // Speed of typing
                 }
             }
             
-            // Create raindrops
-            function createRaindrops() {
-                for (let i = 0; i < 50; i++) {
-                    const drop = document.createElement('div');
-                    drop.classList.add('raindrop');
-                    drop.style.left = `${Math.random() * 100}%`;
-                    drop.style.height = `${Math.random() * 20 + 10}px`;
-                    drop.style.animationDelay = `${Math.random() * 5}s`;
-                    drop.style.animationDuration = `${Math.random() * 2 + 1}s`;
-                    drop.style.opacity = Math.random() * 0.7 + 0.3;
-                    
-                    // Animation for each raindrop
-                    drop.animate([
-                        { transform: 'translateY(0)', opacity: 0.7 },
-                        { transform: 'translateY(800px)', opacity: 0.3 }
-                    ], {
-                        duration: Math.random() * 2000 + 1000,
-                        iterations: Infinity,
-                        delay: Math.random() * 3000
-                    });
-                    
-                    raindropContainer.appendChild(drop);
-                }
-            }
+            // Start typing after a delay
+            setTimeout(type, 1000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            typeText();
             
-            // Create sparkles effect
-            function createSparkles() {
-                for (let i = 0; i < 50; i++) {
-                    const sparkle = document.createElement('div');
-                    sparkle.classList.add('sparkle');
-                    sparkle.style.width = `${Math.random() * 4 + 2}px`;
-                    sparkle.style.height = sparkle.style.width;
-                    
-                    // Set random positions
-                    setSparklePosition(sparkle);
-                    
-                    // Animation for sparkles
-                    sparkle.animate([
-                        { transform: 'scale(0)', opacity: 0 },
-                        { transform: 'scale(1)', opacity: 0.8 },
-                        { transform: 'scale(0)', opacity: 0 }
-                    ], {
-                        duration: Math.random() * 2000 + 1000,
-                        iterations: Infinity,
-                        delay: Math.random() * 3000
-                    });
-                    
-                    sparklesContainer.appendChild(sparkle);
-                }
-            }
+            // Try to auto-play music with multiple strategies
+            setTimeout(() => {
+                attemptAutoPlay();
+            }, 500);
+        });
+
+        // Add some interactive effects
+        document.querySelector('.card').addEventListener('mousemove', function(e) {
+            const card = this;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             
-            function setSparklePosition(sparkle) {
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-            }
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
             
-            // Initialize
-            createRaindrops();
-            createSparkles();
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
             
-            // Handle any browser interaction for audio
-            document.body.addEventListener('click', function() {
-                if (musicEnabled && bgMusic.paused) {
-                    playMusic();
-                }
-            });
-            
-            // Make rose spin and float
-            const rose = document.querySelector('.rose');
-            rose.animate([
-                { transform: 'translateY(0) rotateY(0deg)' },
-                { transform: 'translateY(-15px) rotateY(180deg)' },
-                { transform: 'translateY(0) rotateY(360deg)' }
-            ], {
-                duration: 10000,
-                iterations: Infinity
-            });
-            
-            // Check if the final image exists
-            const finalImage = document.querySelector('.final-image');
-            finalImage.onerror = function() {
-                // If the image doesn't load, show a message
-                this.style.display = 'none';
-                const errorMsg = document.createElement('div');
-                errorMsg.innerText = 'Image not found. Place "poem.png" in the same folder as this HTML file.';
-                errorMsg.style.color = 'white';
-                errorMsg.style.padding = '20px';
-                errorMsg.style.textAlign = 'center';
-                errorMsg.style.border = '2px dashed white';
-                errorMsg.style.borderRadius = '10px';
-                this.parentNode.insertBefore(errorMsg, this.nextSibling);
-            };
-            
-            // Add hover effect to controls
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.1)';
-                });
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Add special effects to the final image scene
-            const finalScene = document.getElementById('scene6');
-            finalScene.addEventListener('transitionend', function() {
-                if (this.classList.contains('active')) {
-                    // Add extra sparkles around the image when it becomes visible
-                    for (let i = 0; i < 20; i++) {
-                        setTimeout(() => {
-                            const extraSparkle = document.createElement('div');
-                            extraSparkle.classList.add('sparkle');
-                            extraSparkle.style.width = `${Math.random() * 6 + 3}px`;
-                            extraSparkle.style.height = extraSparkle.style.width;
-                            extraSparkle.style.left = `${Math.random() * 80 + 10}%`;
-                            extraSparkle.style.top = `${Math.random() * 80 + 10}%`;
-                            extraSparkle.style.background = `hsl(${Math.random() * 60 + 330}, 100%, 70%)`;
-                            
-                            extraSparkle.animate([
-                                { transform: 'scale(0)', opacity: 0 },
-                                { transform: 'scale(1)', opacity: 0.9 },
-                                { transform: 'scale(0)', opacity: 0 }
-                            ], {
-                                duration: 2000,
-                                iterations: 1
-                            });
-                            
-                            sparklesContainer.appendChild(extraSparkle);
-                            
-                            // Remove the sparkle after animation
-                            setTimeout(() => {
-                                if (sparklesContainer.contains(extraSparkle)) {
-                                    sparklesContainer.removeChild(extraSparkle);
-                                }
-                            }, 2000);
-                        }, i * 100);
-                    }
-                }
-            });
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        document.querySelector('.card').addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
         });
     </script>
 </body>
