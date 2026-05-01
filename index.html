@@ -212,6 +212,16 @@
             font-size: 15px;
             line-height: 1.5;
         }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .heart-pulse {
+            display: inline-block;
+            animation: heartbeat 1.2s infinite;
+        }
     </style>
 </head>
 
@@ -219,21 +229,22 @@
     <!-- Canvas for Flowers -->
     <canvas id="flowerCanvas"></canvas>
 
-    <div class="garden-title">🌸 Flower Garden for You</div>
+    <div class="garden-title">🌸 A Special Garden for Annu</div>
 
     <!-- Cute Sticky Note -->
     <div class="sticky-note">
-        <h3>Happy Women's Day! 🌷</h3>
-        <p>You are strong, beautiful, and inspiring today and every day!<br> Stay happy, healthy and blessed. Hats off!!
-            💖
+        <h3>Dear Annu... 😔</h3>
+        <p>I am really sorry. Please accept these flowers as my way of saying <b>Maafi</b>.<br>
+            Take Care Always. ✨
+            <span class="heart-pulse">🙏💖</span>
         </p>
     </div>
 
     <!-- Center Content -->
     <div class="center-content">
-        <div class="instruction-small">Click Anywhere to</div>
-        <div class="instruction-large">Plant Flowers</div>
-        <div class="instruction-sub">✨ or turn on Auto Bloom</div>
+        <div class="instruction-small">Every Flower is a</div>
+        <div class="instruction-large">Smile for You</div>
+        <div class="instruction-sub">✨ Tap to grow a beautiful garden, Annu</div>
 
         <div class="garden-buttons">
             <button class="garden-btn" onclick="clearGarden(event)" title="Clear all flowers">🧹 Clear Garden</button>
@@ -592,11 +603,15 @@
             // Start with a few flowers sequentially
             setTimeout(() => {
                 let type1 = FLOWER_TYPES[nextFlowerType];
-                flowers.push(new Flower(window.innerWidth * 0.15, window.innerHeight * 0.6, type1));
+                flowers.push(new Flower(window.innerWidth * 0.15, window.innerHeight * 0.7, type1));
                 nextFlowerType = (nextFlowerType + 1) % FLOWER_TYPES.length;
 
                 let type2 = FLOWER_TYPES[nextFlowerType];
-                flowers.push(new Flower(window.innerWidth * 0.85, window.innerHeight * 0.7, type2));
+                flowers.push(new Flower(window.innerWidth * 0.85, window.innerHeight * 0.75, type2));
+                nextFlowerType = (nextFlowerType + 1) % FLOWER_TYPES.length;
+
+                let type3 = FLOWER_TYPES[nextFlowerType];
+                flowers.push(new Flower(window.innerWidth * 0.5, window.innerHeight * 0.8, type3));
                 nextFlowerType = (nextFlowerType + 1) % FLOWER_TYPES.length;
             }, 800);
 
